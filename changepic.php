@@ -3,6 +3,7 @@
 session_start();
 //使用一个会话变量检查登录状态
 $_SESSION['userurl'] = $_SERVER['REQUEST_URI'];
+$id = $_GET['id'];
 ?>
   <?php include("shujuku.php") ?>
 
@@ -12,7 +13,7 @@ $_SESSION['userurl'] = $_SERVER['REQUEST_URI'];
     <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <title>锐景摄影:上传照片</title>
+      <title>锐景摄影:修改照片</title>
 
       <!-- Bootstrap -->
       <script src="js/jquery.min.js"></script>
@@ -24,36 +25,44 @@ $_SESSION['userurl'] = $_SERVER['REQUEST_URI'];
 
     <body>
       <?php
-include("dingbu.php");
-?>
+        include("dingbu.php");
+        $username= $_SESSION['username'];
+        $sql ="SELECT pictureid,picturename,img,type,say FROM qbank WHERE photographer = '$username' AND pictureid = '$id' ";
+        $result = mysqli_query($conn,$sql);
+        if(mysqli_affected_rows($conn)>0) {
+            mysqli_data_seek($result,0);
+            while ($row = mysqli_fetch_array($result)) {
+        ?>
 
         <div class="container">
           <div class="row clearfix">
           <div class="col-xs-12 column margin5">
               <div class="page-header">
                 <h3>
-                上传照片
+                修改照片描述
                 </h3>
               </div>
           </div>
           <div class="col-xs-12 column ">
-          <form class="form-horizontal" action="doshangchuan.php" method="post" enctype="multipart/form-data">
+          <form class="form-horizontal" action="dochangepic.php" method="post" enctype="multipart/form-data">
               <fieldset>
 
               <input id="photographer" name="photographer" value="<?=$_SESSION['username']?>" type="hidden"   required="">
+              
                 <!-- 文本框-->
                 <div class="form-group">
                   <label class="col-md-3 control-label" for="picturename">照片名称</label>
                   <div class="col-md-7">
-                    <input id="picturename" name="picturename" type="text" placeholder="" class="form-control input-md" required="">
+                    <input id="pictureid" name="pictureid" value="<?=$_GET['id']?>" type="hidden"  required="">
+                    <input id="picturename" name="picturename" type="text" placeholder="" value="<?=$row['picturename']?>" class="form-control input-md" required="">
                   </div>
                 </div>
 
                 <!-- 文本框-->
                 <div class="form-group">
-                  <label class="col-md-3 control-label" for="img">上传照片</label>
+                  <label class="col-md-3 control-label" for="img">照片</label>
                   <div class="col-md-7">
-                    <input id="img" name="img" type="file"   required="">
+                    <img src="<?=$row['img']?>" class="img-responsive" />
                   </div>
                 </div>
 
@@ -61,7 +70,15 @@ include("dingbu.php");
                 <div class="form-group">
                   <label class="col-md-3 control-label" for="say">描述</label>
                   <div class="col-md-7">
-                    <textarea class="form-control" id="say" name="say"></textarea>
+                    <textarea class="form-control" id="say" name="say"  value="<?=$row['say']?>"></textarea>
+                  </div>
+                </div>
+
+                <!-- 文本域 -->
+                <div class="form-group">
+                  <label class="col-md-3 control-label" for="types">所选分类</label>
+                  <div class="col-md-7">
+                  <p class="form-control-static"><?=$row['type']?></p>
                   </div>
                 </div>
 
@@ -94,8 +111,14 @@ include("dingbu.php");
         </div>
 
         <?php
-include("weibu.php");
-?>
+        }
+        // 释放资源
+        mysqli_free_result($result);
+    }else{
+        echo "<td colspan='6'><p class='text-center'>未上传图片，请上传</p></td></tr>";
+    }
+          include("weibu.php");
+        ?>
     </body>
 
     </html>

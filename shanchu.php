@@ -6,7 +6,7 @@ $conn = mysqli_connect(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME) or die("Unable to co
 
 mysqli_set_charset($conn,"utf8");
 $id = $_GET['id'];
-$sql = "DELETE FROM `cart` WHERE `cart`.`cartid` = $id";
+$sql = "DELETE FROM `picture` WHERE `cart`.`pictureid` = $id";
 $resault=mysqli_query($conn,$sql);
 if(isset($resault)){
 	mysqli_close($conn);

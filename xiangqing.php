@@ -54,7 +54,7 @@ $_SESSION['userurl'] = $_SERVER['REQUEST_URI'];
                                            echo "<h3><b>".$picturename."</b></h3>";
                                            echo "<hr>";
                                            echo "<h4><b>分类:</b><a href='sousuo.php?query=".$type."' style='color:#F39800;'>".$type."(点击查看该种类下更多)</a></h4>";
-                                           echo "<h4><b>作者:</b><a href='sousuo.php?query=".$type."' style='color:#F39800;'>".$photographer."(点击查看该作者作品)</a></h4>";
+                                           echo "<h4><b>作者:</b><a href='sousuo.php?query=".$photographer."' style='color:#F39800;'>".$photographer."(点击查看该作者作品)</a></h4>";
                                            echo "<h4><b>描述:</b>".$say."</h4>";
                                         echo "</div>";
                                     echo "</div>";    
