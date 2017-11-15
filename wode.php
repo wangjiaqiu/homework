@@ -60,7 +60,7 @@ $_SESSION['userurl'] = $_SERVER['REQUEST_URI'];
                    }
                    else{
                         $username= $_SESSION['username'];
-                        $sql ="SELECT pictureid,picturename,img,type,say FROM qbank WHERE photographer = '$username' ";
+                        $sql ="SELECT pictureid,picturename,img,type,say FROM picture WHERE photographer = '$username' ";
                         $result = mysqli_query($conn,$sql);
                         if(mysqli_affected_rows($conn)>0) {
                             mysqli_data_seek($result,0);

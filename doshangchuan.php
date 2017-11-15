@@ -5,7 +5,7 @@ require_once 'shujuku.php';
 $conn = mysqli_connect(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME) or die("Unable to connect!".mysqli_connect_error());
 
 mysqli_set_charset($conn,"utf8");
-if(!isset($_SESSION['username'])){
+if(!isset($_POST['photographer'])){
     echo "<meta http-equiv='refresh' content='0.1;url=denglu.php'>";
 }else{
     $picturename = $_POST['picturename'];

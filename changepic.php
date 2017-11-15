@@ -27,7 +27,7 @@ $id = $_GET['id'];
       <?php
         include("dingbu.php");
         $username= $_SESSION['username'];
-        $sql ="SELECT pictureid,picturename,img,type,say FROM qbank WHERE photographer = '$username' AND pictureid = '$id' ";
+        $sql ="SELECT pictureid,picturename,img,type,say FROM picture WHERE photographer = '$username' AND pictureid = '$id' ";
         $result = mysqli_query($conn,$sql);
         if(mysqli_affected_rows($conn)>0) {
             mysqli_data_seek($result,0);
@@ -70,7 +70,7 @@ $id = $_GET['id'];
                 <div class="form-group">
                   <label class="col-md-3 control-label" for="say">描述</label>
                   <div class="col-md-7">
-                    <textarea class="form-control" id="say" name="say"  value="<?=$row['say']?>"></textarea>
+                    <textarea class="form-control" id="say" name="say"  ><?=$row['say']?></textarea>
                   </div>
                 </div>
 
